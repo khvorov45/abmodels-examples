@@ -12,8 +12,12 @@ cox_plot_dir <- here("cox-proportional-hazards", "data-plot")
 
 #' Reads the simualted cox data
 read_data_sim_cox <- function() {
+  dat_file <- file.path(cox_data_dir, "sim-cox.csv")
+  if (!file.exists(dat_file)) {
+    stop("Run sim.r in data to generate data")
+  }
   read_csv(
-    file.path(cox_data_dir, "sim-cox.csv"),
+    dat_file,
     col_types = cols(
       status = col_integer()
     )

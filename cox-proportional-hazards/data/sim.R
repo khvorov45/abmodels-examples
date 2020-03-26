@@ -36,7 +36,7 @@ sim_cox <- function(nsam = 1e3,
 
 # Simulate data
 data_sim_cox <- sim_cox(
-  nsam = 1e3,
+  nsam = 200,
   beta_0 = -3, beta_logtitre = -1.5,
   max_follow = 100,
   seed = 20200326

@@ -10,7 +10,7 @@ cox_plot_dir <- here("cox-proportional-hazards", "data-plot")
 
 # Functions ===================================================================
 
-#' Reads the simualted cox data
+#' Reads the simulated cox data
 read_data_sim_cox <- function() {
   dat_file <- file.path(cox_data_dir, "sim-cox.csv")
   if (!file.exists(dat_file)) {

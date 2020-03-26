@@ -59,21 +59,27 @@ gen_protection <- function(predictions) {
 
 # Script ======================================================================
 
+# Simualated data. Center logtitre on log(5).
 data_sim_cox <- read_data_sim_cox() %>%
   mutate(logtitre_centered = logtitre - log(5))
 
+# Model fit
 cox_fit <- coxph(
   Surv(time_recorded, event = status) ~ logtitre_centered,
   data_sim_cox
 )
 
+# Covariate values for which we want the fitted values
 data_to_fit <- tibble(
   logtitre = seq(0, 8, length.out = 101),
   logtitre_centered = logtitre - log(5)
 )
 
+# Generate predictions manually
 cox_predictions <- predict_cox(cox_fit, data_to_fit)
 
+# Generate protection from the fit
 cox_prot <- gen_protection(cox_predictions)
 
+# Save the fit to the same folder as the script
 write_csv(cox_prot, file.path(cox_fit_dir, "fit.csv"))

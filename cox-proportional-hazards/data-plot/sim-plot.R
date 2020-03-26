@@ -75,12 +75,16 @@ plot_sim_cox <- function(summ) {
 
 # Script ======================================================================
 
+# Simualted data
 data_sim_cox <- read_data_sim_cox()
 
+# Summarise the simulated data for plotting
 summ_sim_cox <- summ_data_sim_cox(data_sim_cox)
 
+# Plot the summarised data
 plot_sim_cox <- plot_sim_cox(summ_sim_cox)
 
+# Save the plot to the same folder as the script
 ggsave(
   file.path(cox_plot_dir, "sim-plot.pdf"),
   width = 12, height = 7.5, units = "cm"

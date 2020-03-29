@@ -47,7 +47,10 @@ summ_data_sim_cox <- function(data) {
   data %>%
     mutate(
       titre = exp(logtitre),
-      titre_group = cut(titre, c(0, 10 * 2^(0:7), Inf), dig.lab = 4)
+      titre_group = cut(
+        titre, c(0, 10 * 2^(0:7), Inf),
+        dig.lab = 4, right = FALSE
+      )
     ) %>%
     group_by(titre_group) %>%
     group_modify(function(data, key) {

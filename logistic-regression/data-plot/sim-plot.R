@@ -62,7 +62,8 @@ plot_sim_lr <- function(summ) {
     ) +
     scale_x_discrete("Titre range") +
     geom_point() +
-    geom_text_repel(aes(label = n))
+    geom_text_repel(aes(label = n)) +
+    labs(caption = "Numbers are total group counts")
 }
 
 # Script ======================================================================

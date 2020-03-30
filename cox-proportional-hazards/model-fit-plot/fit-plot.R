@@ -39,7 +39,7 @@ gen_plot <- function(cox_fit) {
 
 # Script ======================================================================
 
-# Fitted values
+# Fitted values. Run `fit.R` in the `model-fit` folder to generate `fit.csv`
 cox_fit <- read_csv(file.path(cox_fit_dir, "fit.csv"), col_types = cols())
 
 # Plot of protection

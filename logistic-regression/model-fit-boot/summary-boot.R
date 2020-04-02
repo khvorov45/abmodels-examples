@@ -15,15 +15,15 @@ bootfit_widen <- function(bootfit) {
     pivot_wider(names_from = term, values_from = estimate)
 }
 
-#' Calculates fitted values for one loghi for all bootstrap fit results
+#' Calculates fitted values for one logtitre for all bootstrap fit results
 #'
-#' @param loghi One value of loghi to calculate fitted values for
+#' @param logtitre One value of logtitre to calculate fitted values for
 #' @param bootfit_wide Widened bootstrap results
-#' @param threshold Threshold loghi to calculate relative protection for
-fit_for_one_loghi <- function(loghi, bootfit_wide, threshold = log(5)) {
+#' @param threshold Threshold logtitre to calculate relative protection for
+fit_for_one_logtitre <- function(logtitre, bootfit_wide, threshold = log(5)) {
   bootfit_wide %>%
     mutate(
-      fit_lin = b0 + bx * loghi,
+      fit_lin = b0 + bx * logtitre,
       threshold_lin = b0 + bx * threshold,
       fit_og = 1 - 1 / (1 + exp(fit_lin)),
       threshold_og = 1 - 1 / (1 + exp(threshold_lin)),
@@ -32,17 +32,17 @@ fit_for_one_loghi <- function(loghi, bootfit_wide, threshold = log(5)) {
     select(-contains("threshold"), -fit_lin) %>%
     pivot_longer(contains("fit"), names_to = "fit_type", values_to = "fit") %>%
     mutate(
-      loghi = loghi,
+      logtitre = logtitre,
       prot = 1 - fit,
       prot_type = str_replace(fit_type, "fit_", "")
     )
 }
 
 #' Summarises the fitted values by obtaning the quantiles of the distribution
-#' for protection at different values of loghi
+#' for protection at different values of logtitre
 summarise_fit <- function(fit) {
   fit %>%
-    group_by(prot_type, loghi) %>%
+    group_by(prot_type, logtitre) %>%
     summarise(prot_quant = list(quantile(prot, c(0.025, 0.5, 0.975)))) %>%
     ungroup() %>%
     unnest_longer(
@@ -62,9 +62,9 @@ bootfit <- read_csv(
 # Convert to wide
 bootfit_wide <- bootfit_widen(bootfit)
 
-# Calculate the quantiles for the predictor at a range of loghi values
-loghis <- seq(0, 8, length.out = 101)
-fit_preds <- map_dfr(loghis, fit_for_one_loghi, bootfit_wide, log(5))
+# Calculate the quantiles for the predictor at a range of logtitre values
+logtitres <- seq(0, 8, length.out = 101)
+fit_preds <- map_dfr(logtitres, fit_for_one_logtitre, bootfit_wide, log(5))
 
 # Summarise the fitted values
 fit_summ <- summarise_fit(fit_preds)

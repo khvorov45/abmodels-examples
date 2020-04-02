@@ -70,4 +70,4 @@ fit_preds <- map_dfr(loghis, fit_for_one_loghi, bootfit_wide, log(5))
 fit_summ <- summarise_fit(fit_preds)
 
 # Save the summary
-write_csv(fit_preds, file.path(lr_fit_boot_dir, "fit-summary.csv"))
+write_csv(fit_summ, file.path(lr_fit_boot_dir, "fit-summary.csv"))

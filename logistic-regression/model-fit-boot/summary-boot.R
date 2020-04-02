@@ -64,7 +64,10 @@ bootfit_wide <- bootfit_widen(bootfit)
 
 # Calculate the quantiles for the predictor at a range of loghi values
 loghis <- seq(0, 8, length.out = 101)
-fit_preds <- map_dfr(loghis, fit_for_one_loghi, bootfit_wide)
+fit_preds <- map_dfr(loghis, fit_for_one_loghi, bootfit_wide, log(5))
+
+# Summarise the fitted values
+fit_summ <- summarise_fit(fit_preds)
 
 # Save the summary
 write_csv(fit_preds, file.path(lr_fit_boot_dir, "fit-summary.csv"))

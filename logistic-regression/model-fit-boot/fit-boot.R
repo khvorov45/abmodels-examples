@@ -46,7 +46,7 @@ boot_fit <- function(dat, n_res = 1000) {
     resamples$splits, fit_one,
     .options = future_options(packages = "broom")
   ) %>%
-    mutate(term = recode(term, "(Intercept)" = "b0", "loghimid" = "bx"))
+    mutate(term = recode(term, "(Intercept)" = "b0", "logtitre" = "bx"))
 }
 
 # Script ======================================================================

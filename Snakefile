@@ -4,11 +4,11 @@ rule clean:
 
 rule sim_cox:
     input:
-        "cox-proportional-hazards/data/sim.R"
+        "cox-proportional-hazards/data/sim-cox.R"
     output:
         "cox-proportional-hazards/data/sim-cox.csv"
     script:
-        "cox-proportional-hazards/data/sim.R"
+        "cox-proportional-hazards/data/sim-cox.R"
 
 rule plot_cox:
     input:

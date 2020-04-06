@@ -44,6 +44,21 @@ LR_MODEL_FIT_BOOT_SUMMARY_SCRIPT = LR_MODEL_FIT_DIR + "/summary-boot.R"
 LR_MODEL_FIT_PLOT_SCRIPT = LR_MODEL_FIT_PLOT_DIR + "/fit-plot.R"
 
 # Rules for cleaning output
+rule clean:
+    shell:
+        "rm -f " + " ".join([
+            COX_DATA_FILE, 
+            COX_DATA_PLOT_FILE, 
+            COX_MODEL_FIT_FILE,
+            COX_MODEL_FIT_PLOT_FILE,
+            LR_DATA_FILE,
+            LR_DATA_PLOT_FILE,
+            LR_MODEL_FIT_FILE,
+            LR_MODEL_FIT_BOOT_FILE,
+            LR_MODEL_FIT_BOOT_SUMMARY_FILE,
+            " ".join(LR_MODEL_FIT_PLOT_FILES)
+        ])
+
 rule clean_cox:
     shell:
         "rm -f " + " ".join([
@@ -65,6 +80,13 @@ rule clean_lr:
         ])
 
 # Rules for generating all of the output
+rule all:
+    input:
+        COX_MODEL_FIT_PLOT_FILE,
+        COX_DATA_PLOT_FILE,
+        LR_MODEL_FIT_PLOT_FILES,
+        LR_DATA_PLOT_FILE
+
 rule all_cox:
     input:
         COX_MODEL_FIT_PLOT_FILE,

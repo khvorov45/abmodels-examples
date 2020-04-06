@@ -9,3 +9,9 @@ Easiest way to generate everything is with [Snakemake](https://snakemake.readthe
 ```shell
 snakemake all --cores all
 ```
+
+Everything that's generated can be removed with
+
+```shell
+snakemake clean --cores all
+```

@@ -1,4 +1,3 @@
-
 # Cox directories
 COX_DIR = "cox-proportional-hazards"
 COX_DATA_DIR = COX_DIR + "/data"

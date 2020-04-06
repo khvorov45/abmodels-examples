@@ -1,6 +1,6 @@
 # Cox directories
 COX_DIR = "cox-proportional-hazards"
-COX_DATA_DIR = COX_DIR + "/data"
+COX_DATA_DIR = f"{COX_DIR}/data"
 COX_DATA_PLOT_DIR = COX_DIR + "/data-plot"
 COX_MODEL_FIT_DIR = COX_DIR + "/model-fit"
 COX_MODEL_FIT_PLOT_DIR = COX_DIR + "/model-fit-plot"
@@ -31,7 +31,7 @@ LR_MODEL_FIT_FILE = LR_MODEL_FIT_DIR + "/fit.csv"
 LR_MODEL_FIT_BOOT_FILE = LR_MODEL_FIT_DIR + "/fit-boot.csv"
 LR_MODEL_FIT_BOOT_SUMMARY_FILE = LR_MODEL_FIT_DIR + "/fit-boot-summary.csv"
 LR_MODEL_FIT_PLOT_FILES = [
-    LR_MODEL_FIT_PLOT_DIR + fle for fle in 
+    LR_MODEL_FIT_PLOT_DIR + fle for fle in
     ["/protection.pdf", "/protection-boot.pdf", "/protection-boot-rel.pdf"]
 ]
 
@@ -47,8 +47,8 @@ LR_MODEL_FIT_PLOT_SCRIPT = LR_MODEL_FIT_PLOT_DIR + "/fit-plot.R"
 rule clean:
     shell:
         "rm -f " + " ".join([
-            COX_DATA_FILE, 
-            COX_DATA_PLOT_FILE, 
+            COX_DATA_FILE,
+            COX_DATA_PLOT_FILE,
             COX_MODEL_FIT_FILE,
             COX_MODEL_FIT_PLOT_FILE,
             LR_DATA_FILE,
@@ -62,8 +62,8 @@ rule clean:
 rule clean_cox:
     shell:
         "rm -f " + " ".join([
-            COX_DATA_FILE, 
-            COX_DATA_PLOT_FILE, 
+            COX_DATA_FILE,
+            COX_DATA_PLOT_FILE,
             COX_MODEL_FIT_FILE,
             COX_MODEL_FIT_PLOT_FILE
         ])

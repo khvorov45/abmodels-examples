@@ -1,43 +1,68 @@
+
+# Cox directories
+COX_DIR = "cox-proportional-hazards"
+COX_DATA_DIR = COX_DIR + "/data"
+COX_DATA_PLOT_DIR = COX_DIR + "/data-plot"
+COX_MODEL_FIT_DIR = COX_DIR + "/model-fit"
+COX_MODEL_FIT_PLOT_DIR = COX_DIR + "/model-fit-plot"
+
+# Cox files
+COX_DATA_FILE = COX_DATA_DIR + "/sim-cox.csv"
+COX_DATA_PLOT_FILE = COX_DATA_PLOT_DIR + "/sim-plot.pdf"
+COX_MODEL_FIT_FILE = COX_MODEL_FIT_DIR + "/fit.csv"
+COX_MODEL_FIT_PLOT_FILE = COX_MODEL_FIT_PLOT_DIR + "/protection.pdf"
+
+# Cox scripts
+COX_DATA_SCRIPT = COX_DATA_DIR + "/sim-cox.R"
+COX_DATA_PLOT_SCRIPT = COX_DATA_PLOT_DIR + "/sim-plot.R"
+COX_MODEL_FIT_SCRIPT = COX_MODEL_FIT_DIR + "/fit.R"
+COX_MODEL_FIT_PLOT_SCRIPT = COX_MODEL_FIT_PLOT_DIR + "/fit-plot.R"
+
 rule clean_cox:
     shell:
-        "rm -f cox-proportional-hazards/data/sim-cox.csv cox-proportional-hazards/data-plot/sim-plot.pdf cox-proportional-hazards/model-fit/fit.csv cox-proportional-hazards/model-fit-plot/protection.pdf"
+        "rm -f " + " ".join([
+            COX_DATA_FILE, 
+            COX_DATA_PLOT_FILE, 
+            COX_MODEL_FIT_FILE,
+            COX_MODEL_FIT_PLOT_FILE
+        ])
 
 rule all_cox:
     input:
-        "cox-proportional-hazards/model-fit-plot/protection.pdf",
-        "cox-proportional-hazards/data-plot/sim-plot.pdf"
+        COX_MODEL_FIT_PLOT_FILE,
+        COX_DATA_PLOT_FILE
 
 rule sim_cox:
     input:
-        "cox-proportional-hazards/data/sim-cox.R"
+        COX_DATA_SCRIPT
     output:
-        "cox-proportional-hazards/data/sim-cox.csv"
+        COX_DATA_FILE
     script:
-        "cox-proportional-hazards/data/sim-cox.R"
+        COX_DATA_SCRIPT
 
 rule plot_cox:
     input:
-        "cox-proportional-hazards/data/sim-cox.csv",
-        "cox-proportional-hazards/data-plot/sim-plot.R"
+        COX_DATA_FILE,
+        COX_DATA_PLOT_SCRIPT
     output:
-        "cox-proportional-hazards/data-plot/sim-plot.pdf"
+        COX_DATA_PLOT_FILE
     script:
-        "cox-proportional-hazards/data-plot/sim-plot.R"
+        COX_DATA_PLOT_SCRIPT
 
 rule fit_cox:
     input:
-        "cox-proportional-hazards/data/sim-cox.csv",
-        "cox-proportional-hazards/model-fit/fit.R"
+        COX_DATA_FILE,
+        COX_MODEL_FIT_SCRIPT
     output:
-        "cox-proportional-hazards/model-fit/fit.csv"
+        COX_MODEL_FIT_FILE
     script:
-        "cox-proportional-hazards/model-fit/fit.R"
+        COX_MODEL_FIT_SCRIPT
 
 rule plot_protection_cox:
     input:
-        "cox-proportional-hazards/model-fit/fit.csv",
-        "cox-proportional-hazards/model-fit-plot/fit-plot.R"
+        COX_MODEL_FIT_FILE,
+        COX_MODEL_FIT_PLOT_SCRIPT
     output:
-        "cox-proportional-hazards/model-fit-plot/protection.pdf"
+        COX_MODEL_FIT_PLOT_FILE
     script:
-        "cox-proportional-hazards/model-fit-plot/fit-plot.R"
+        COX_MODEL_FIT_PLOT_SCRIPT

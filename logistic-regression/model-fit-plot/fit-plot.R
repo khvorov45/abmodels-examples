@@ -80,8 +80,8 @@ lr_plot_boot_rel <- widen_summary(lr_fit_boot, "rel") %>% gen_plot()
 iwalk(
   list(
     "protection" = lr_plot,
-    "protection_boot" = lr_plot_boot_og,
-    "protection_boot_rel" = lr_plot_boot_rel
+    "protection-boot" = lr_plot_boot_og,
+    "protection-boot-rel" = lr_plot_boot_rel
   ),
   save_plot
 )

@@ -22,15 +22,14 @@ LR_DIR = "logistic-regression"
 LR_DATA_DIR = LR_DIR + "/data"
 LR_DATA_PLOT_DIR = LR_DIR + "/data-plot"
 LR_MODEL_FIT_DIR = LR_DIR + "/model-fit"
-LR_MODEL_FIT_BOOT_DIR = LR_DIR + "/model-fit-boot"
 LR_MODEL_FIT_PLOT_DIR = LR_DIR + "/model-fit-plot"
 
 # Logistic files
 LR_DATA_FILE = LR_DATA_DIR + "/sim-lr.csv"
 LR_DATA_PLOT_FILE = LR_DATA_PLOT_DIR + "/sim-plot.pdf"
 LR_MODEL_FIT_FILE = LR_MODEL_FIT_DIR + "/fit.csv"
-LR_MODEL_FIT_BOOT_FILE = LR_MODEL_FIT_BOOT_DIR + "/fit-boot.csv"
-LR_MODEL_FIT_BOOT_SUMMARY_FILE = LR_MODEL_FIT_BOOT_DIR + "/fit-summary.csv"
+LR_MODEL_FIT_BOOT_FILE = LR_MODEL_FIT_DIR + "/fit-boot.csv"
+LR_MODEL_FIT_BOOT_SUMMARY_FILE = LR_MODEL_FIT_DIR + "/fit-boot-summary.csv"
 LR_MODEL_FIT_PLOT_FILES = [
     LR_MODEL_FIT_PLOT_DIR + fle for fle in 
     ["/protection.pdf", "/protection-boot.pdf", "/protection-boot-rel.pdf"]
@@ -40,8 +39,8 @@ LR_MODEL_FIT_PLOT_FILES = [
 LR_DATA_SCRIPT = LR_DATA_DIR + "/sim-lr.R"
 LR_DATA_PLOT_SCRIPT = LR_DATA_PLOT_DIR + "/sim-plot.R"
 LR_MODEL_FIT_SCRIPT = LR_MODEL_FIT_DIR + "/fit.R"
-LR_MODEL_FIT_BOOT_SCRIPT = LR_MODEL_FIT_BOOT_DIR + "/fit-boot.R"
-LR_MODEL_FIT_BOOT_SUMMARY_SCRIPT = LR_MODEL_FIT_BOOT_DIR + "/summary-boot.R"
+LR_MODEL_FIT_BOOT_SCRIPT = LR_MODEL_FIT_DIR + "/fit-boot.R"
+LR_MODEL_FIT_BOOT_SUMMARY_SCRIPT = LR_MODEL_FIT_DIR + "/summary-boot.R"
 LR_MODEL_FIT_PLOT_SCRIPT = LR_MODEL_FIT_PLOT_DIR + "/fit-plot.R"
 
 # Rules for cleaning output

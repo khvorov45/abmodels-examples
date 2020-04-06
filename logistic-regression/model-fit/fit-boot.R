@@ -10,7 +10,7 @@ plan(multiprocess)
 
 # Directories used
 lr_data_dir <- here("logistic-regression", "data")
-lr_fit_boot_dir <- here("logistic-regression", "model-fit-boot")
+lr_fit_dir <- here("logistic-regression", "model-fit")
 
 # Functions ===================================================================
 
@@ -58,4 +58,4 @@ data_sim_lr <- read_data_sim_lr()
 lr_fit_boot <- boot_fit(data_sim_lr, 2000)
 
 # Save bootstrap fit resutls
-write_csv(lr_fit_boot, file.path(lr_fit_boot_dir, "fit-boot.csv"))
+write_csv(lr_fit_boot, file.path(lr_fit_dir, "fit-boot.csv"))

@@ -22,6 +22,8 @@ Easiest way to generate everything is with [Snakemake](https://snakemake.readthe
 snakemake all --cores all
 ```
 
+Make sure to install the dependencies beforehand.
+
 Everything that's generated can be removed with
 
 ```shell

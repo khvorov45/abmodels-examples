@@ -4,16 +4,16 @@ library(tidyverse)
 library(here)
 
 # Directories used
-lr_data_dir <- here("logistic-regression", "data")
-lr_fit_dir <- here("logistic-regression", "model-fit")
+data_dir <- here("data")
+fit_dir <- here("model-fit")
 
 # Functions ===================================================================
 
 #' Reads the simulated lr data
 read_data_sim_lr <- function() {
-  dat_file <- file.path(lr_data_dir, "sim-lr.csv")
+  dat_file <- file.path(data_dir, "sim-lr.csv")
   if (!file.exists(dat_file)) {
-    stop("Run sim.r in data to generate data")
+    stop("Run sim-lr.r in data to generate logistic data")
   }
   read_csv(
     dat_file,
@@ -76,4 +76,4 @@ lr_predictions <- predict_lr(lr_fit, data_to_fit)
 lr_prot <- gen_protection(lr_predictions)
 
 # Save the fit to the same folder as the script
-write_csv(lr_prot, file.path(lr_fit_dir, "fit.csv"))
+write_csv(lr_prot, file.path(fit_dir, "predict-lr.csv"))

@@ -1,191 +1,104 @@
-# Cox directories
-COX_DIR = "cox-proportional-hazards"
-COX_DATA_DIR = f"{COX_DIR}/data"
-COX_DATA_PLOT_DIR = COX_DIR + "/data-plot"
-COX_MODEL_FIT_DIR = COX_DIR + "/model-fit"
-COX_MODEL_FIT_PLOT_DIR = COX_DIR + "/model-fit-plot"
-
-# Cox files
-COX_DATA_FILE = COX_DATA_DIR + "/sim-cox.csv"
-COX_DATA_PLOT_FILE = COX_DATA_PLOT_DIR + "/sim-plot.pdf"
-COX_MODEL_FIT_FILE = COX_MODEL_FIT_DIR + "/fit.csv"
-COX_MODEL_FIT_PLOT_FILE = COX_MODEL_FIT_PLOT_DIR + "/protection.pdf"
-
-# Cox scripts
-COX_DATA_SCRIPT = COX_DATA_DIR + "/sim-cox.R"
-COX_DATA_PLOT_SCRIPT = COX_DATA_PLOT_DIR + "/sim-plot.R"
-COX_MODEL_FIT_SCRIPT = COX_MODEL_FIT_DIR + "/fit.R"
-COX_MODEL_FIT_PLOT_SCRIPT = COX_MODEL_FIT_PLOT_DIR + "/fit-plot.R"
-
-# Logistic directories
-LR_DIR = "logistic-regression"
-LR_DATA_DIR = LR_DIR + "/data"
-LR_DATA_PLOT_DIR = LR_DIR + "/data-plot"
-LR_MODEL_FIT_DIR = LR_DIR + "/model-fit"
-LR_MODEL_FIT_PLOT_DIR = LR_DIR + "/model-fit-plot"
-
-# Logistic files
-LR_DATA_FILE = LR_DATA_DIR + "/sim-lr.csv"
-LR_DATA_PLOT_FILE = LR_DATA_PLOT_DIR + "/sim-plot.pdf"
-LR_MODEL_FIT_FILE = LR_MODEL_FIT_DIR + "/fit.csv"
-LR_MODEL_FIT_BOOT_FILE = LR_MODEL_FIT_DIR + "/fit-boot.csv"
-LR_MODEL_FIT_BOOT_SUMMARY_FILE = LR_MODEL_FIT_DIR + "/fit-boot-summary.csv"
-LR_MODEL_FIT_PLOT_FILES = [
-    LR_MODEL_FIT_PLOT_DIR + fle for fle in
-    ["/protection.pdf", "/protection-boot.pdf", "/protection-boot-rel.pdf"]
-]
-
-# Logistic scripts
-LR_DATA_SCRIPT = LR_DATA_DIR + "/sim-lr.R"
-LR_DATA_PLOT_SCRIPT = LR_DATA_PLOT_DIR + "/sim-plot.R"
-LR_MODEL_FIT_SCRIPT = LR_MODEL_FIT_DIR + "/fit.R"
-LR_MODEL_FIT_BOOT_SCRIPT = LR_MODEL_FIT_DIR + "/fit-boot.R"
-LR_MODEL_FIT_BOOT_SUMMARY_SCRIPT = LR_MODEL_FIT_DIR + "/summary-boot.R"
-LR_MODEL_FIT_PLOT_SCRIPT = LR_MODEL_FIT_PLOT_DIR + "/fit-plot.R"
-
-# Rules for cleaning output
-rule clean:
-    shell:
-        "rm -f " + " ".join([
-            COX_DATA_FILE,
-            COX_DATA_PLOT_FILE,
-            COX_MODEL_FIT_FILE,
-            COX_MODEL_FIT_PLOT_FILE,
-            LR_DATA_FILE,
-            LR_DATA_PLOT_FILE,
-            LR_MODEL_FIT_FILE,
-            LR_MODEL_FIT_BOOT_FILE,
-            LR_MODEL_FIT_BOOT_SUMMARY_FILE,
-            " ".join(LR_MODEL_FIT_PLOT_FILES)
-        ])
-
-rule clean_cox:
-    shell:
-        "rm -f " + " ".join([
-            COX_DATA_FILE,
-            COX_DATA_PLOT_FILE,
-            COX_MODEL_FIT_FILE,
-            COX_MODEL_FIT_PLOT_FILE
-        ])
-
-rule clean_lr:
-    shell:
-        "rm -f " + " ".join([
-            LR_DATA_FILE,
-            LR_DATA_PLOT_FILE,
-            LR_MODEL_FIT_FILE,
-            LR_MODEL_FIT_BOOT_FILE,
-            LR_MODEL_FIT_BOOT_SUMMARY_FILE,
-            " ".join(LR_MODEL_FIT_PLOT_FILES)
-        ])
-
 # Rules for generating all of the output
 rule all:
     input:
-        COX_MODEL_FIT_PLOT_FILE,
-        COX_DATA_PLOT_FILE,
-        LR_MODEL_FIT_PLOT_FILES,
-        LR_DATA_PLOT_FILE
-
-rule all_cox:
-    input:
-        COX_MODEL_FIT_PLOT_FILE,
-        COX_DATA_PLOT_FILE
-
-rule all_lr:
-    input:
-        LR_MODEL_FIT_PLOT_FILES,
-        LR_DATA_PLOT_FILE
+        "protect-plot/protect-cox.pdf",
+        "protect-plot/protect-lr.pdf",
+        "protect-plot/protect-boot-lr.pdf",
+        "protect-plot/protect-boot-lr-rel.pdf",
+        "data-plot/plot-cox.pdf",
+        "data-plot/plot-lr.pdf"
 
 # Rules for simulating the data
 rule sim_cox:
     input:
-        COX_DATA_SCRIPT
+        "data/sim-cox.R"
     output:
-        COX_DATA_FILE
+        "data/sim-cox.csv"
     script:
-        COX_DATA_SCRIPT
+        "data/sim-cox.R"
 
 rule sim_lr:
     input:
-        LR_DATA_SCRIPT
+        "data/sim-lr.R"
     output:
-        LR_DATA_FILE
+        "data/sim-lr.csv"
     script:
-        LR_DATA_SCRIPT
+        "data/sim-lr.R"
 
 # Rules for plotting the data
 rule plot_cox:
     input:
-        COX_DATA_FILE,
-        COX_DATA_PLOT_SCRIPT
+        "data/sim-cox.csv",
+        "data-plot/plot-cox.R"
     output:
-        COX_DATA_PLOT_FILE
+        "data-plot/plot-cox.pdf"
     script:
-        COX_DATA_PLOT_SCRIPT
+        "data-plot/plot-cox.R"
 
 rule plot_lr:
     input:
-        LR_DATA_FILE,
-        LR_DATA_PLOT_SCRIPT
+        "data/sim-lr.csv",
+        "data-plot/plot-lr.R"
     output:
-        LR_DATA_PLOT_FILE
+        "data-plot/plot-lr.pdf"
     script:
-        LR_DATA_PLOT_SCRIPT
+        "data-plot/plot-lr.R"
 
 # Rules for model fitting
 rule fit_cox:
     input:
-        COX_DATA_FILE,
-        COX_MODEL_FIT_SCRIPT
+        "data/sim-cox.csv",
+        "model-fit/fit-cox.R"
     output:
-        COX_MODEL_FIT_FILE
+        "model-fit/predict-cox.csv"
     script:
-        COX_MODEL_FIT_SCRIPT
+        "model-fit/fit-cox.R"
 
 rule fit_lr:
     input:
-        LR_DATA_FILE,
-        LR_MODEL_FIT_SCRIPT
+        "data/sim-lr.csv",
+        "model-fit/fit-lr.R"
     output:
-        LR_MODEL_FIT_FILE
+        "model-fit/predict-lr.csv"
     script:
-        LR_MODEL_FIT_SCRIPT
+        "model-fit/fit-lr.R"
 
 rule fit_lr_boot:
     input:
-        LR_DATA_FILE,
-        LR_MODEL_FIT_BOOT_SCRIPT
+        "data/sim-lr.csv",
+        "model-fit/boot-lr.R"
     output:
-        LR_MODEL_FIT_BOOT_FILE
+        "model-fit/boot-lr.csv"
     script:
-        LR_MODEL_FIT_BOOT_SCRIPT
+        "model-fit/boot-lr.R"
 
 rule summ_lr_boot:
     input:
-        LR_MODEL_FIT_BOOT_FILE,
-        LR_MODEL_FIT_BOOT_SUMMARY_SCRIPT
+        "model-fit/boot-lr.csv",
+        "model-fit/boot-summ-lr.R"
     output:
-        LR_MODEL_FIT_BOOT_SUMMARY_FILE,
+        "model-fit/predict-boot-lr.csv",
     script:
-        LR_MODEL_FIT_BOOT_SUMMARY_SCRIPT
+        "model-fit/boot-summ-lr.R"
 
 # Rules for plotting protection curves
 rule plot_prot_cox:
     input:
-        COX_MODEL_FIT_FILE,
-        COX_MODEL_FIT_PLOT_SCRIPT
+        "model-fit/predict-cox.csv",
+        "protect-plot/protect-cox.R"
     output:
-        COX_MODEL_FIT_PLOT_FILE
+        "protect-plot/protect-cox.pdf"
     script:
-        COX_MODEL_FIT_PLOT_SCRIPT
+        "protect-plot/protect-cox.R"
 
 rule plot_prot_lr:
     input:
-        LR_MODEL_FIT_FILE,
-        LR_MODEL_FIT_BOOT_SUMMARY_FILE,
-        LR_MODEL_FIT_PLOT_SCRIPT
+        "model-fit/predict-lr.csv",
+        "model-fit/predict-boot-lr.csv",
+        "protect-plot/protect-lr.R"
     output:
-        LR_MODEL_FIT_PLOT_FILES
+        "protect-plot/protect-lr.pdf",
+        "protect-plot/protect-boot-lr.pdf",
+        "protect-plot/protect-boot-lr-rel.pdf"
     script:
-        LR_MODEL_FIT_PLOT_SCRIPT
+        "protect-plot/protect-lr.R"

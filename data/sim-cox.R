@@ -4,7 +4,7 @@ library(tidyverse)
 library(here)
 
 # Directories used
-cox_data_dir <- here("cox-proportional-hazards", "data")
+data_dir <- here("data")
 
 # Functions ===================================================================
 
@@ -43,4 +43,4 @@ data_sim_cox <- sim_cox(
 )
 
 # Save simulated data
-write_csv(data_sim_cox, file.path(cox_data_dir, "sim-cox.csv"))
+write_csv(data_sim_cox, file.path(data_dir, "sim-cox.csv"))

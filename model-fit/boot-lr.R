@@ -9,16 +9,16 @@ library(broom)
 plan(multiprocess)
 
 # Directories used
-lr_data_dir <- here("logistic-regression", "data")
-lr_fit_dir <- here("logistic-regression", "model-fit")
+data_dir <- here("data")
+fit_dir <- here("model-fit")
 
 # Functions ===================================================================
 
 #' Reads the simulated lr data
 read_data_sim_lr <- function() {
-  dat_file <- file.path(lr_data_dir, "sim-lr.csv")
+  dat_file <- file.path(data_dir, "sim-lr.csv")
   if (!file.exists(dat_file)) {
-    stop("Run sim.r in data to generate data")
+    stop("Run sim-lr.r in data to generate logistic data")
   }
   read_csv(
     dat_file,
@@ -58,4 +58,4 @@ data_sim_lr <- read_data_sim_lr()
 lr_fit_boot <- boot_fit(data_sim_lr, 2000)
 
 # Save bootstrap fit resutls
-write_csv(lr_fit_boot, file.path(lr_fit_dir, "fit-boot.csv"))
+write_csv(lr_fit_boot, file.path(fit_dir, "boot-lr.csv"))

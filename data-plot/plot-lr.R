@@ -1,20 +1,20 @@
-# Plot the simulated data
+# Plot the simulated logistic data
 
 library(tidyverse)
 library(ggrepel)
 library(here)
 
 # Directories used
-lr_data_dir <- here("logistic-regression", "data")
-lr_plot_dir <- here("logistic-regression", "data-plot")
+data_dir <- here("data")
+data_plot_dir <- here("data-plot")
 
 # Functions ===================================================================
 
 #' Reads the simulated logistic regression data
 read_data_sim_lr <- function() {
-  dat_file <- file.path(lr_data_dir, "sim-lr.csv")
+  dat_file <- file.path(data_dir, "sim-lr.csv")
   if (!file.exists(dat_file)) {
-    stop("Run sim.r in data to generate data")
+    stop("Run sim-lr.r in data to generate logistic data")
   }
   read_csv(
     dat_file,
@@ -79,6 +79,6 @@ plot_sim_lr <- plot_sim_lr(summ_sim_lr)
 
 # Save the plot to the same folder as the script
 ggsave(
-  file.path(lr_plot_dir, "sim-plot.pdf"),
+  file.path(data_plot_dir, "plot-lr.pdf"),
   width = 12, height = 7.5, units = "cm"
 )

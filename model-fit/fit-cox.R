@@ -1,20 +1,20 @@
-# Fit the Cox model to the simulated data
+# Fit the Cox model to the simulated time-to-event data
 
 library(tidyverse)
 library(survival)
 library(here)
 
 # Directories used
-cox_data_dir <- here("cox-proportional-hazards", "data")
-cox_fit_dir <- here("cox-proportional-hazards", "model-fit")
+data_dir <- here("data")
+fit_dir <- here("model-fit")
 
 # Functions ===================================================================
 
-#' Reads the simulated cox data
+#' Reads the simulated time-to-event data
 read_data_sim_cox <- function() {
-  dat_file <- file.path(cox_data_dir, "sim-cox.csv")
+  dat_file <- file.path(data_dir, "sim-cox.csv")
   if (!file.exists(dat_file)) {
-    stop("Run sim.r in data to generate data")
+    stop("Run sim-cox.r in data to generate time-to-event data")
   }
   read_csv(
     dat_file,
@@ -81,5 +81,5 @@ cox_predictions <- predict_cox(cox_fit, data_to_fit)
 # Generate protection from the fit
 cox_prot <- gen_protection(cox_predictions)
 
-# Save the fit to the same folder as the script
-write_csv(cox_prot, file.path(cox_fit_dir, "fit.csv"))
+# Save the predictions to the same folder as the script
+write_csv(cox_prot, file.path(fit_dir, "predict-cox.csv"))

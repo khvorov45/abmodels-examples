@@ -5,7 +5,7 @@ library(extraDistr)
 library(here)
 
 # Directories used
-lr_data_dir <- here("logistic-regression", "data")
+data_dir <- here("data")
 
 # Functions ===================================================================
 
@@ -37,4 +37,4 @@ data_sim_lr <- sim_lr(
 )
 
 # Save simulated data
-write_csv(data_sim_lr, file.path(lr_data_dir, "sim-lr.csv"))
+write_csv(data_sim_lr, file.path(data_dir, "sim-lr.csv"))

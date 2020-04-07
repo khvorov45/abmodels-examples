@@ -4,11 +4,14 @@ library(tidyverse)
 library(here)
 
 # Directories used
-cox_fit_dir <- here("cox-proportional-hazards", "model-fit")
-cox_fit_plot_dir <- here("cox-proportional-hazards", "model-fit-plot")
+fit_dir <- here("model-fit")
+prot_plot_dir <- here("protect-plot")
 
 # Functions ===================================================================
 
+#' Generates the plot
+#'
+#' @param cox_fit Predictions from the cox model
 gen_plot <- function(cox_fit) {
   cox_fit %>%
     ggplot(aes(logtitre, protection)) +
@@ -39,15 +42,16 @@ gen_plot <- function(cox_fit) {
 
 # Script ======================================================================
 
-# Fitted values. Run `fit.R` in the `model-fit` folder to generate `fit.csv`
-cox_fit <- read_csv(file.path(cox_fit_dir, "fit.csv"), col_types = cols())
+# Fitted values. Run `fit-cox.R` in the `model-fit` folder
+# to generate `predict-cox.csv`
+cox_fit <- read_csv(file.path(fit_dir, "predict-cox.csv"), col_types = cols())
 
 # Plot of protection
 cox_plot <- gen_plot(cox_fit)
 
 # Save plot to the same directory as the script
 ggsave(
-  file.path(cox_fit_plot_dir, "protection.pdf"),
+  file.path(prot_plot_dir, "protect-cox.pdf"),
   cox_plot,
   width = 12, height = 7.5, units = "cm"
 )

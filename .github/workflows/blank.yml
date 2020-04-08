@@ -30,6 +30,8 @@ jobs:
       with:
         path: "/usr/local/lib/R/site-library"  
         key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('dependencies.R') }}
+        restore-keys: |
+          ${{ runner.os }}-${{ env.cache-name }}-
 
     - name: Install R packages
       run: |

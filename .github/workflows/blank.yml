@@ -12,9 +12,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Install R
-      run: sudo apt-get -y install r-base r-base-dev libcurl4-openssl-dev libxml2-dev libssl-dev
     
     - name: Install Snakemake
       run: | 
@@ -22,10 +19,12 @@ jobs:
         sudo -H python3 -m pip install --upgrade snakemake
 
     - name: Install R packages
-      run: sudo Rscript dependencies.R
+      run: |
+        sudo apt-get install libcurl4-openssl-dev libxml2-dev libssl-dev
+        sudo Rscript -e 'install.packages("here")'
 
-    - name: snakemake all
-      run: snakemake all --cores 1
+    #- name: snakemake all
+    #  run: snakemake all --cores 1
     
     - uses: actions/upload-artifact@v1
       with:

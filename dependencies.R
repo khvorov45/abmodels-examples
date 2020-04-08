@@ -3,5 +3,5 @@ if (!"remotes" %in% rownames(installed.packages())) {
 }
 remotes::update_packages(c(
   "tidyverse", "furrr", "here", "viridis", "extraDistr", "ggrepel", "rsample",
-  "broom"
+  "broom", "sclr"
 ))

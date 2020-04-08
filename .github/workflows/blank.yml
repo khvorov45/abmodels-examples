@@ -26,21 +26,21 @@ jobs:
     - name: Install R package dependencies
       run: sudo apt-get install libcurl4-openssl-dev libxml2-dev libssl-dev
 
-    - name: Cache R packages
+    - name: Cache packrat
       uses: actions/cache@v1
       env:
-        cache-name: cache-r-packages
+        cache-name: cache-packrat
       with:
         path: "packrat/lib"  
         key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('packrat/packrat.lock') }}
         restore-keys: |
           ${{ runner.os }}-${{ env.cache-name }}-
     
-    - name: test packrat
-      run: sudo Rscript -e 'cat("letting packrat initialise")'
+    - name: Restore packrat snapshot
+      run: sudo Rscript -e 'source("packrat/init.R")'
 
-    #- name: snakemake all
-    #  run: snakemake all --cores 1
+    - name: snakemake all
+      run: snakemake all --cores 1
     
     - uses: actions/upload-artifact@v1
       with:

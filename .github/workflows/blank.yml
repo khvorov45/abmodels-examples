@@ -17,7 +17,12 @@ jobs:
       uses: r-lib/actions/setup-r@master
     
     - name: Install Snakemake
-      run: sudo apt-get install snakemake && sudo -H python3 -m pip install --upgrade snakemake
+      run: | 
+        sudo apt-get install snakemake
+        sudo -H python3 -m pip install --upgrade snakemake
+
+    - name: Install R packages
+      run: sudo Rscript dependencies.R
 
     - name: snakemake all
       run: snakemake all --cores 1

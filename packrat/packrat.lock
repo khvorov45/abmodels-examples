@@ -130,6 +130,12 @@ Source: CRAN
 Version: 0.14
 Hash: 18306cc3bc1aec7b7360eea8a0eb0ee1
 
+Package: extraDistr
+Source: CRAN
+Version: 1.8.11
+Hash: cd4a133d15cee836e209d5e7f03d60fe
+Requires: Rcpp
+
 Package: fansi
 Source: CRAN
 Version: 0.4.1

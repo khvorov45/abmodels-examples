@@ -17,8 +17,8 @@ rule sim_cox:
     output:
         "data/sim-cox.csv"
     shell:
-        "Rshell data/sim-cox.R"
-Rscript 
+        "Rscript data/sim-cox.R"
+ 
 rule sim_lr:
     input:
         "data/sim-lr.R"

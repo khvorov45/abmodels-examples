@@ -13,6 +13,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Install R
+      uses: r-lib/actions/setup-r@master
+
     - name: snamemake all
       uses: snakemake/snakemake-github-action@v1.5.2
       with:
@@ -22,5 +25,5 @@ jobs:
     
     - uses: actions/upload-artifact@v1
       with:
-        name: temp-artifact
+        name: data
         path: data

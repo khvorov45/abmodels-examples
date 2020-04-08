@@ -1,4 +1,4 @@
-# Plot the simulated logistic data
+# Plot the simulated logistic and scaled logit data
 
 library(tidyverse)
 library(ggrepel)
@@ -11,10 +11,10 @@ data_plot_dir <- here("data-plot")
 # Functions ===================================================================
 
 #' Reads the simulated logistic regression data
-read_data_sim_lr <- function() {
-  dat_file <- file.path(data_dir, "sim-lr.csv")
+read_data_sim_bin <- function(name) {
+  dat_file <- file.path(data_dir, name)
   if (!file.exists(dat_file)) {
-    stop("Run sim-lr.r in data to generate logistic data")
+    stop("Run sim-lr.R and sim-sclr.R in data to generate binary data")
   }
   read_csv(
     dat_file,
@@ -24,12 +24,12 @@ read_data_sim_lr <- function() {
   )
 }
 
-#' Summarises the simulated cox data
+#' Summarises the simulated binary data
 #'
-#' Calculates ifected proportion for different titre groups
+#' Calculates infected proportion for different titre groups
 #'
-#' @param data Simulated logistic data
-summ_data_sim_lr <- function(data) {
+#' @param data Simulated binary data (logistic or scaled logit)
+summ_data_sim_bin <- function(data) {
   data %>%
     mutate(
       titre = exp(logtitre),
@@ -48,7 +48,7 @@ summ_data_sim_lr <- function(data) {
 #' Plots simulated data
 #'
 #' @param summ Summarised simulated data
-plot_sim_lr <- function(summ) {
+plot_sim_bin <- function(summ) {
   summ %>%
     ggplot(aes(titre_group, prop)) +
     theme_bw() +
@@ -66,19 +66,27 @@ plot_sim_lr <- function(summ) {
     labs(caption = "Numbers are total group counts")
 }
 
+save_plot <- function(plot, name) {
+  ggsave(
+    file.path(data_plot_dir, name), plot,
+    width = 12, height = 7.5, units = "cm"
+  )
+}
+
 # Script ======================================================================
 
 # Simualted data
-data_sim_lr <- read_data_sim_lr()
+datasets_sim_bin <- map(
+  c("lr" = "sim-lr.csv", "sclr" = "sim-sclr.csv"),
+  read_data_sim_bin
+)
 
 # Summarise the simulated data for plotting
-summ_sim_lr <- summ_data_sim_lr(data_sim_lr)
+summaries_sim_bin <- map(datasets_sim_bin, summ_data_sim_bin)
 
 # Plot the summarised data
-plot_sim_lr <- plot_sim_lr(summ_sim_lr)
+plots_sim_bin <- map(summaries_sim_bin, plot_sim_bin)
+names(plots_sim_bin) <- glue::glue("plot-{names(plots_sim_bin)}.pdf")
 
 # Save the plot to the same folder as the script
-ggsave(
-  file.path(data_plot_dir, "plot-lr.pdf"),
-  width = 12, height = 7.5, units = "cm"
-)
+iwalk(plots_sim_bin, save_plot)

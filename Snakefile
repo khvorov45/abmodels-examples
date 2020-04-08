@@ -5,8 +5,10 @@ rule all:
         "protect-plot/protect-lr.pdf",
         "protect-plot/protect-boot-lr.pdf",
         "protect-plot/protect-boot-lr-rel.pdf",
+        "protect-plot/protect-sclr.pdf",
         "data-plot/plot-cox.pdf",
-        "data-plot/plot-lr.pdf"
+        "data-plot/plot-lr.pdf",
+        "data-plot/plot-sclr.pdf"
 
 # Rules for simulating the data
 rule sim_cox:
@@ -25,6 +27,14 @@ rule sim_lr:
     script:
         "data/sim-lr.R"
 
+rule sim_sclr:
+    input:
+        "data/sim-sclr.R"
+    output:
+        "data/sim-sclr.csv"
+    script:
+        "data/sim-sclr.R"
+
 # Rules for plotting the data
 rule plot_cox:
     input:
@@ -35,14 +45,16 @@ rule plot_cox:
     script:
         "data-plot/plot-cox.R"
 
-rule plot_lr:
+rule plot_bin:
     input:
         "data/sim-lr.csv",
-        "data-plot/plot-lr.R"
+        "data/sim-sclr.csv",
+        "data-plot/plot-bin.R"
     output:
-        "data-plot/plot-lr.pdf"
+        "data-plot/plot-lr.pdf",
+        "data-plot/plot-sclr.pdf"
     script:
-        "data-plot/plot-lr.R"
+        "data-plot/plot-bin.R"
 
 # Rules for model fitting
 rule fit_cox:
@@ -81,6 +93,15 @@ rule summ_lr_boot:
     script:
         "model-fit/boot-summ-lr.R"
 
+rule fit_sclr:
+    input:
+        "model-fit/fit-sclr.R",
+        "data/sim-sclr.csv"
+    output:
+        "model-fit/predict-sclr.csv"
+    script:
+        "model-fit/fit-sclr.R"
+
 # Rules for plotting protection curves
 rule plot_prot_cox:
     input:
@@ -102,3 +123,12 @@ rule plot_prot_lr:
         "protect-plot/protect-boot-lr-rel.pdf"
     script:
         "protect-plot/protect-lr.R"
+
+rule plot_prot_sclr:
+    input:
+        "model-fit/predict-sclr.csv",
+        "protect-plot/protect-sclr.R"
+    output:
+        "protect-plot/protect-sclr.pdf"
+    script:
+        "protect-plot/protect-sclr.R"

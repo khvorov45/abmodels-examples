@@ -6,3 +6,5 @@
 *.pdf
 .snakemake
 .vscode
+packrat/lib*/
+packrat/src/

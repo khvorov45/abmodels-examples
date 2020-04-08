@@ -23,26 +23,21 @@ jobs:
         sudo apt-get install snakemake
         sudo -H python3 -m pip install --upgrade snakemake
 
+    - name: Install R package dependencies
+      run: sudo apt-get install libcurl4-openssl-dev libxml2-dev libssl-dev
+
     - name: Cache R packages
       uses: actions/cache@v1
       env:
         cache-name: cache-r-packages
       with:
-        path: "/usr/local/lib/R/site-library"  
-        key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('dependencies.R') }}
+        path: "packrat/lib"  
+        key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('packrat/packrat.lock') }}
         restore-keys: |
           ${{ runner.os }}-${{ env.cache-name }}-
-
-    - name: Install R packages
-      run: |
-        sudo apt-get install libcurl4-openssl-dev libxml2-dev libssl-dev
-        sudo Rscript -e 'install.packages("here")'
-        echo 1
-        ls /usr/local/lib/R/site-library
-        echo 2
-        ls /usr/lib/R/site-library
-        echo 3
-        ls /usr/lib/R/library
+    
+    - name: test packrat
+      run: sudo Rscript -e 'cat("letting packrat initialise")'
 
     #- name: snakemake all
     #  run: snakemake all --cores 1

@@ -37,7 +37,7 @@ jobs:
           ${{ runner.os }}-${{ env.cache-name }}-
     
     - name: Restore packrat snapshot
-      run: R --vanilla -f packrat/init.R --args --bootstrap-packrat
+      run: R --vanilla -f .Rprofile --args --bootstrap-packrat
 
     - name: snakemake all
       run: snakemake all --cores 1

@@ -30,5 +30,11 @@ jobs:
     - name: Run a multi-line script
       run: |
         echo Add other actions to build,
-        echo test, and deploy your project,
-        touch temp.txt
+        echo test, and deploy your project
+        mkdir temp
+        touch temp/temp-art.txt
+    
+    - uses: actions/upload-artifact@v1
+      with:
+        name: temp-artifact
+        path: temp

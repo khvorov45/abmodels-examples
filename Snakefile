@@ -16,24 +16,24 @@ rule sim_cox:
         "data/sim-cox.R"
     output:
         "data/sim-cox.csv"
-    script:
-        "data/sim-cox.R"
-
+    shell:
+        "Rshell data/sim-cox.R"
+Rscript 
 rule sim_lr:
     input:
         "data/sim-lr.R"
     output:
         "data/sim-lr.csv"
-    script:
-        "data/sim-lr.R"
+    shell:
+        "Rscript data/sim-lr.R"
 
 rule sim_sclr:
     input:
         "data/sim-sclr.R"
     output:
         "data/sim-sclr.csv"
-    script:
-        "data/sim-sclr.R"
+    shell:
+        "Rscript data/sim-sclr.R"
 
 # Rules for plotting the data
 rule plot_cox:
@@ -42,8 +42,8 @@ rule plot_cox:
         "data-plot/plot-cox.R"
     output:
         "data-plot/plot-cox.pdf"
-    script:
-        "data-plot/plot-cox.R"
+    shell:
+        "Rscript data-plot/plot-cox.R"
 
 rule plot_bin:
     input:
@@ -53,8 +53,8 @@ rule plot_bin:
     output:
         "data-plot/plot-lr.pdf",
         "data-plot/plot-sclr.pdf"
-    script:
-        "data-plot/plot-bin.R"
+    shell:
+        "Rscript data-plot/plot-bin.R"
 
 # Rules for model fitting
 rule fit_cox:
@@ -63,8 +63,8 @@ rule fit_cox:
         "model-fit/fit-cox.R"
     output:
         "model-fit/predict-cox.csv"
-    script:
-        "model-fit/fit-cox.R"
+    shell:
+        "Rscript model-fit/fit-cox.R"
 
 rule fit_lr:
     input:
@@ -72,8 +72,8 @@ rule fit_lr:
         "model-fit/fit-lr.R"
     output:
         "model-fit/predict-lr.csv"
-    script:
-        "model-fit/fit-lr.R"
+    shell:
+        "Rscript model-fit/fit-lr.R"
 
 rule fit_lr_boot:
     input:
@@ -81,8 +81,8 @@ rule fit_lr_boot:
         "model-fit/boot-lr.R"
     output:
         "model-fit/boot-lr.csv"
-    script:
-        "model-fit/boot-lr.R"
+    shell:
+        "Rscript model-fit/boot-lr.R"
 
 rule summ_lr_boot:
     input:
@@ -90,8 +90,8 @@ rule summ_lr_boot:
         "model-fit/boot-summ-lr.R"
     output:
         "model-fit/predict-boot-lr.csv",
-    script:
-        "model-fit/boot-summ-lr.R"
+    shell:
+        "Rscript model-fit/boot-summ-lr.R"
 
 rule fit_sclr:
     input:
@@ -99,8 +99,8 @@ rule fit_sclr:
         "data/sim-sclr.csv"
     output:
         "model-fit/predict-sclr.csv"
-    script:
-        "model-fit/fit-sclr.R"
+    shell:
+        "Rscript model-fit/fit-sclr.R"
 
 # Rules for plotting protection curves
 rule plot_prot_cox:
@@ -109,8 +109,8 @@ rule plot_prot_cox:
         "protect-plot/protect-cox.R"
     output:
         "protect-plot/protect-cox.pdf"
-    script:
-        "protect-plot/protect-cox.R"
+    shell:
+        "Rscript protect-plot/protect-cox.R"
 
 rule plot_prot_lr:
     input:
@@ -121,8 +121,8 @@ rule plot_prot_lr:
         "protect-plot/protect-lr.pdf",
         "protect-plot/protect-boot-lr.pdf",
         "protect-plot/protect-boot-lr-rel.pdf"
-    script:
-        "protect-plot/protect-lr.R"
+    shell:
+        "Rscript protect-plot/protect-lr.R"
 
 rule plot_prot_sclr:
     input:
@@ -130,5 +130,5 @@ rule plot_prot_sclr:
         "protect-plot/protect-sclr.R"
     output:
         "protect-plot/protect-sclr.pdf"
-    script:
-        "protect-plot/protect-sclr.R"
+    shell:
+        "Rscript protect-plot/protect-sclr.R"

@@ -15,13 +15,12 @@ jobs:
 
     - name: Install R
       uses: r-lib/actions/setup-r@master
+    
+    - name: Install Snakemake
+      run: sudo python3 -m pip install snakemake
 
-    - name: snamemake all
-      uses: snakemake/snakemake-github-action@v1.5.2
-      with:
-        directory: '.'
-        snakefile: 'Snakefile'
-        args: 'all --cores 1'
+    - name: snakemake all
+      run: snakemake all --cores 1
     
     - uses: actions/upload-artifact@v1
       with:

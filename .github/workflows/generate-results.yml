@@ -40,7 +40,12 @@ jobs:
     - name: Snakemake all
       run: snakemake all --cores all
     
+    - name: Create artifact
+      run: |
+        mkdir project-with-artifacts
+        cp -ar data data-plot model-fit protect-plot project-with-artifacts/
+    
     - uses: actions/upload-artifact@v1
       with:
         name: project-with-artifacts
-        path: .
+        path: project-with-artifacts

@@ -1,5 +1,7 @@
 # Application of statistical models to antibody data
 
+![GenerateResults](https://github.com/khvorov45/abmodels-examples/workflows/GenerateResults/badge.svg)
+
 ## Dependencies
 
 Dependencies can be installed by running `dependencies.R`, e.g.

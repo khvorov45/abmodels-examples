@@ -1,4 +1,4 @@
-name: GenerateResults
+name: GenerateResultsLinux
 
 on:
   push:
@@ -26,21 +26,19 @@ jobs:
     - name: Install R package dependencies
       run: sudo apt-get install libcurl4-openssl-dev libxml2-dev libssl-dev
 
-    - name: Cache packrat
+    - name: Cache renv
       uses: actions/cache@v1
-      env:
-        cache-name: cache-packrat
       with:
-        path: "packrat/lib"  
-        key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('packrat/packrat.lock') }}
+        path: ~/.local/share/renv
+        key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
         restore-keys: |
-          ${{ runner.os }}-${{ env.cache-name }}-
+          ${{ runner.os }}-renv-
     
-    - name: Restore packrat snapshot
-      run: sudo R --vanilla -f .Rprofile --args --bootstrap-packrat
+    - name: Restore renv snapshot
+      run: sudo Rscript -e "renv::restore()"
 
-    - name: snakemake all
-      run: snakemake all --cores 1
+    #- name: snakemake all
+    #  run: snakemake all --cores 1
     
     - uses: actions/upload-artifact@v1
       with:

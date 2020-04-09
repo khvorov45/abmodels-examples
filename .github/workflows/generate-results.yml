@@ -1,4 +1,4 @@
-name: GenerateResultsLinux
+name: GenerateResults
 
 on:
   push:
@@ -37,15 +37,10 @@ jobs:
     - name: Restore renv snapshot
       run: sudo Rscript -e "renv::restore()"
 
-    - name: snakemake all
-      run: snakemake all --cores 1
+    - name: Snakemake all
+      run: snakemake all --cores all
     
     - uses: actions/upload-artifact@v1
       with:
-        name: data
-        path: data
-
-    - uses: actions/upload-artifact@v1
-      with:
-        name: data-plot
-        path: data-plot
+        name: project-with-artifacts
+        path: .

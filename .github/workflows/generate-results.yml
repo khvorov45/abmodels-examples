@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  generate-results:
+  linux:
     runs-on: ubuntu-latest
 
     steps:
@@ -37,8 +37,8 @@ jobs:
     - name: Restore renv snapshot
       run: sudo Rscript -e "renv::restore()"
 
-    #- name: snakemake all
-    #  run: snakemake all --cores 1
+    - name: snakemake all
+      run: snakemake all --cores 1
     
     - uses: actions/upload-artifact@v1
       with:

@@ -1,6 +1,6 @@
 # Application of statistical models to antibody data
 
-![GenerateResults](https://github.com/khvorov45/abmodels-examples/workflows/GenerateResults/badge.svg)
+[![GenerateResults](https://github.com/khvorov45/abmodels-examples/workflows/GenerateResults/badge.svg)](https://github.com/khvorov45/abmodels-examples/actions)
 
 ## Dependencies
 

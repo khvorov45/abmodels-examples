@@ -2,9 +2,9 @@ name: GenerateResults
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   linux:
@@ -12,41 +12,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Add R repository
-      run: |
-        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
-        sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/'
-    
-    - name: Install Snakemake
-      run: | 
-        sudo apt-get install snakemake
-        sudo -H python3 -m pip install --upgrade snakemake
+      - name: Add R repository
+        run: |
+          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+          sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/'
 
-    - name: Install R package dependencies
-      run: sudo apt-get install libcurl4-openssl-dev libxml2-dev libssl-dev
+      - name: Install Snakemake
+        run: |
+          sudo apt-get install snakemake
+          sudo -H python3 -m pip install --upgrade snakemake
 
-    - name: Cache renv
-      uses: actions/cache@v1
-      with:
-        path: ~/.local/share/renv
-        key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-renv-
-    
-    - name: Restore renv snapshot
-      run: sudo Rscript -e "renv::restore()"
+      - name: Install R package dependencies
+        run: sudo apt-get install libcurl4-openssl-dev libxml2-dev libssl-dev
 
-    - name: Snakemake all
-      run: snakemake all --cores all
-    
-    - name: Create artifact
-      run: |
-        mkdir project-with-artifacts
-        cp -ar data data-plot model-fit protect-plot project-with-artifacts/
-    
-    - uses: actions/upload-artifact@v1
-      with:
-        name: project-with-artifacts
-        path: project-with-artifacts
+      - name: Cache renv
+        uses: actions/cache@v1
+        with:
+          path: ~/.local/share/renv
+          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-renv-
+
+      - name: Snakemake all
+        run: snakemake all --cores all
+
+      - name: Create artifact
+        run: |
+          mkdir project-with-artifacts
+          cp -ar data data-plot model-fit protect-plot project-with-artifacts/
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: project-with-artifacts
+          path: project-with-artifacts

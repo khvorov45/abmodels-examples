@@ -24,6 +24,7 @@ rule all:
 # Rules for simulating the data
 rule sim_cox:
     input:
+        ".deps-installed",
         "data/sim-cox.R"
     output:
         "data/sim-cox.csv"
@@ -32,6 +33,7 @@ rule sim_cox:
 
 rule sim_lr:
     input:
+        ".deps-installed",
         "data/sim-lr.R"
     output:
         "data/sim-lr.csv"
@@ -40,6 +42,7 @@ rule sim_lr:
 
 rule sim_sclr:
     input:
+        ".deps-installed",
         "data/sim-sclr.R"
     output:
         "data/sim-sclr.csv"
@@ -49,6 +52,7 @@ rule sim_sclr:
 # Rules for plotting the data
 rule plot_cox:
     input:
+        ".deps-installed",
         "data/sim-cox.csv",
         "data-plot/plot-cox.R"
     output:
@@ -58,6 +62,7 @@ rule plot_cox:
 
 rule plot_bin:
     input:
+        ".deps-installed",
         "data/sim-lr.csv",
         "data/sim-sclr.csv",
         "data-plot/plot-bin.R"
@@ -70,6 +75,7 @@ rule plot_bin:
 # Rules for model fitting
 rule fit_cox:
     input:
+        ".deps-installed",
         "data/sim-cox.csv",
         "model-fit/fit-cox.R"
     output:
@@ -79,6 +85,7 @@ rule fit_cox:
 
 rule fit_lr:
     input:
+        ".deps-installed",
         "data/sim-lr.csv",
         "model-fit/fit-lr.R"
     output:
@@ -88,6 +95,7 @@ rule fit_lr:
 
 rule fit_lr_boot:
     input:
+        ".deps-installed",
         "data/sim-lr.csv",
         "model-fit/boot-lr.R"
     output:
@@ -97,6 +105,7 @@ rule fit_lr_boot:
 
 rule summ_lr_boot:
     input:
+        ".deps-installed",
         "model-fit/boot-lr.csv",
         "model-fit/boot-summ-lr.R"
     output:
@@ -106,6 +115,7 @@ rule summ_lr_boot:
 
 rule fit_sclr:
     input:
+        ".deps-installed",
         "model-fit/fit-sclr.R",
         "data/sim-sclr.csv"
     output:
@@ -116,6 +126,7 @@ rule fit_sclr:
 # Rules for plotting protection curves
 rule plot_prot_cox:
     input:
+        ".deps-installed",
         "model-fit/predict-cox.csv",
         "protect-plot/protect-cox.R"
     output:
@@ -125,6 +136,7 @@ rule plot_prot_cox:
 
 rule plot_prot_lr:
     input:
+        ".deps-installed",
         "model-fit/predict-lr.csv",
         "model-fit/predict-boot-lr.csv",
         "protect-plot/protect-lr.R"
@@ -137,6 +149,7 @@ rule plot_prot_lr:
 
 rule plot_prot_sclr:
     input:
+        ".deps-installed",
         "model-fit/predict-sclr.csv",
         "protect-plot/protect-sclr.R"
     output:

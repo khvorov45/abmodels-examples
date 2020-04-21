@@ -1,6 +1,17 @@
+# Dependency install
+
+rule deps:
+    input:
+        "renv.lock"
+    output:
+        temp(".deps-installed")
+    shell:
+        """Rscript -e 'renv::restore();file.create(".deps-installed")'"""
+
 # Rules for generating all of the output
 rule all:
     input:
+        ".deps-installed",
         "protect-plot/protect-cox.pdf",
         "protect-plot/protect-lr.pdf",
         "protect-plot/protect-boot-lr.pdf",
@@ -18,7 +29,7 @@ rule sim_cox:
         "data/sim-cox.csv"
     shell:
         "Rscript data/sim-cox.R"
- 
+
 rule sim_lr:
     input:
         "data/sim-lr.R"

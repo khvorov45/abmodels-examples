@@ -22,32 +22,16 @@ rule all:
         "data-plot/plot-sclr.pdf"
 
 # Rules for simulating the data
-rule sim_cox:
+rule sim:
     input:
         ".deps-installed",
         "data/sim-cox.R"
     output:
-        "data/sim-cox.csv"
-    shell:
-        "Rscript data/sim-cox.R"
-
-rule sim_lr:
-    input:
-        ".deps-installed",
-        "data/sim-lr.R"
-    output:
-        "data/sim-lr.csv"
-    shell:
-        "Rscript data/sim-lr.R"
-
-rule sim_sclr:
-    input:
-        ".deps-installed",
-        "data/sim-sclr.R"
-    output:
+        "data/sim-cox.csv",
+        "data/sim-lr.csv",
         "data/sim-sclr.csv"
     shell:
-        "Rscript data/sim-sclr.R"
+        "Rscript data/sim.R"
 
 # Rules for plotting the data
 rule plot_cox:

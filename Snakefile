@@ -25,7 +25,7 @@ rule all:
 rule sim:
     input:
         ".deps-installed",
-        "data/sim-cox.R"
+        "data/sim.R"
     output:
         "data/sim-cox.csv",
         "data/sim-lr.csv",

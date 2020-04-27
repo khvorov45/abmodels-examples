@@ -57,25 +57,19 @@ rule plot_bin:
         "Rscript data-plot/plot-bin.R"
 
 # Rules for model fitting
-rule fit_cox:
+rule fit:
     input:
         ".deps-installed",
+        "model-fit/fit.R",
         "data/sim-cox.csv",
-        "model-fit/fit-cox.R"
-    output:
-        "model-fit/predict-cox.csv"
-    shell:
-        "Rscript model-fit/fit-cox.R"
-
-rule fit_lr:
-    input:
-        ".deps-installed",
         "data/sim-lr.csv",
-        "model-fit/fit-lr.R"
+        "data/sim-sclr.csv"
     output:
-        "model-fit/predict-lr.csv"
+        "model-fit/predict-cox.csv",
+        "model-fit/predict-lr.csv",
+        "model-fit/predict-sclr.csv"
     shell:
-        "Rscript model-fit/fit-lr.R"
+        "Rscript model-fit/fit.R"
 
 rule fit_lr_boot:
     input:
@@ -96,16 +90,6 @@ rule summ_lr_boot:
         "model-fit/predict-boot-lr.csv",
     shell:
         "Rscript model-fit/boot-summ-lr.R"
-
-rule fit_sclr:
-    input:
-        ".deps-installed",
-        "model-fit/fit-sclr.R",
-        "data/sim-sclr.csv"
-    output:
-        "model-fit/predict-sclr.csv"
-    shell:
-        "Rscript model-fit/fit-sclr.R"
 
 # Rules for plotting protection curves
 rule plot_prot_cox:

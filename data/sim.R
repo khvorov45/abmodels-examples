@@ -68,6 +68,10 @@ sim_sclr <- function(nsam = 1e3,
   )
 }
 
+#' Save the simulated data to the same folder as the script
+#'
+#' @param data Dataset to save
+#' @param name Name to give it. Will be prefixed with `sim-`
 save_sim_data <- function(data, name) {
   write_csv(data, file.path(data_dir, glue::glue("sim-{name}.csv")))
 }

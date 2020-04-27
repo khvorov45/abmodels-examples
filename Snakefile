@@ -92,35 +92,19 @@ rule summ_lr_boot:
         "Rscript model-fit/boot-summ-lr.R"
 
 # Rules for plotting protection curves
-rule plot_prot_cox:
+rule plot_prot:
     input:
         ".deps-installed",
+        "protect-plot/protect-plot.R",
         "model-fit/predict-cox.csv",
-        "protect-plot/protect-cox.R"
-    output:
-        "protect-plot/protect-cox.pdf"
-    shell:
-        "Rscript protect-plot/protect-cox.R"
-
-rule plot_prot_lr:
-    input:
-        ".deps-installed",
         "model-fit/predict-lr.csv",
-        "model-fit/predict-boot-lr.csv",
-        "protect-plot/protect-lr.R"
+        "model-fit/predict-sclr.csv",
+        "model-fit/predict-boot-lr.csv"
     output:
+        "protect-plot/protect-cox.pdf",
         "protect-plot/protect-lr.pdf",
+        "protect-plot/protect-sclr.pdf",
         "protect-plot/protect-boot-lr.pdf",
         "protect-plot/protect-boot-lr-rel.pdf"
     shell:
-        "Rscript protect-plot/protect-lr.R"
-
-rule plot_prot_sclr:
-    input:
-        ".deps-installed",
-        "model-fit/predict-sclr.csv",
-        "protect-plot/protect-sclr.R"
-    output:
-        "protect-plot/protect-sclr.pdf"
-    shell:
-        "Rscript protect-plot/protect-sclr.R"
+        "Rscript protect-plot/protect-plot.R"
